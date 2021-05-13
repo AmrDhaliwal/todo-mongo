@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const dotenv = require('dotenv').config();
 
 // Used to avoid deprecation warning for "findOneAndUpdate()"
 const avoid = mongoose.set("useFindAndModify", false);
@@ -13,8 +14,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-
-mongoose.connect("mongodb+srv://admin-amrit:FanFiction23!@cluster0.dfqad.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true});
+const url = process.env.MONGO_URI;
+mongoose.connect(url + "", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const itemsSchema = {
   name: String
