@@ -1,9 +1,8 @@
-//jshint esversion:6
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const dotenv = require('dotenv').config();
 
 // Used to avoid deprecation warning for "findOneAndUpdate()"
 const avoid = mongoose.set("useFindAndModify", false);
@@ -15,7 +14,10 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-amrit:FanFiction23!@cluster0.dfqad.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true});
+// Variable for mongo_uri so admin username and password are hidden from version control
+const url = process.env.MONGO_URI;
+
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const itemsSchema = {
   name: String
@@ -138,6 +140,11 @@ app.get("/about", function(req, res){
   res.render("about");
 });
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+app.listen(port, function() {
+  console.log("Server started");
 });
