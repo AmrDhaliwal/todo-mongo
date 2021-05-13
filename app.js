@@ -17,7 +17,7 @@ app.use(express.static("public"));
 // Variable for mongo_uri so admin username and password are hidden from version control
 const url = process.env.MONGO_URI;
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
+const mon_connect = mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const itemsSchema = {
   name: String
