@@ -14,9 +14,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-var blank = "";
-const url = process.env.MONGO_URI;
-mongoose.connect(blank + url, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-amrit:FanFiction23!@cluster0.dfqad.mongodb.net/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const itemsSchema = {
   name: String
